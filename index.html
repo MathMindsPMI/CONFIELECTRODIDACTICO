@@ -1,55 +1,51 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>CONFIELECTRO — Baraja de la Tabla Periódica</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CONFIELECTRO</title>
 <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
 </head>
 <body>
-<img src='assets/logo.png' alt='logo' style='width:180px; display:block; margin:auto;'>
+<img src="logo.png" class="logo" alt="logo">
+<h1>CONFIELECTRO</h1>
+<div class="controls">
+  <button onclick="setMode('basic')">Modo Básico</button>
+  <button onclick="setMode('expert')">Nivel Experto</button>
+  <button id="revealBtn" onclick="openModal()">Mostrar configuración electrónica</button>
+  <div class="puntaje">Aciertos: <span id="score">0</span> | Restantes: <span id="remaining">118</span></div>
+</div>
 
-  <header class="top">
-    <img src="logo.png" class="logo" alt="CONFIELECTRO logo">
-    <h1>CONFIELECTRO</h1>
-  </header>
+<div class="card" id="card">
+  <div class="card-inner" id="cardInner">
+    <div class="atomic-number" id="atomicNumber"></div>
+    <div class="symbol" id="symbol">?</div>
+    <div class="name" id="name">Nombre</div>
+  </div>
+</div>
 
-  <main class="main">
-    <div class="controls">
-      <div class="modes">
-        <label><input type="radio" name="mode" value="basic" checked> Modo Básico</label>
-        <label><input type="radio" name="mode" value="expert"> Modo Experto</label>
-      </div>
-      <button id="nextBtn" class="primary">Siguiente carta</button>
-      <button id="restartBtn" class="secondary" style="display:none">Reiniciar baraja</button>
-      <div id="counter" class="counter">0 / 118</div>
+<button class="siguiente" onclick="nextCard()">Siguiente carta</button>
+
+<!-- modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div>
+      <div class="config-text" id="configText">Configuración electrónica...</div>
+      <canvas id="orbitalCanvas" class="orbital-canvas" aria-hidden="true"></canvas>
     </div>
+    <div class="info-side">
+      <h3 id="modalTitle">Elemento</h3>
+      <div id="modalDetails"></div>
+      <button class="btn" id="confirmBtn" onclick="confirmReveal()">Marcar como correcto</button>
+      <button class="btn" onclick="closeModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
 
-    <section class="card-wrap" aria-live="polite">
-      <div class="card-container">
-        <div class="card" id="card">
-          <div class="card-face card-front">
-            <div class="atomic-number" id="atomicNumber"></div>
-            <div class="symbol" id="symbol">?</div>
-            <div class="name" id="name"></div>
-          </div>
-          <div class="card-face card-back" id="cardBack">
-            <div class="back-title">Información</div>
-            <div class="extra" id="extraInfo"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <canvas id="particles" class="particles"></canvas>
-
-  <audio id="soundClick" src="sounds/click.wav" preload="auto"></audio>
-  <audio id="soundFlip" src="sounds/flip.wav" preload="auto"></audio>
-  <audio id="soundRare" src="sounds/rare.wav" preload="auto"></audio>
-
+<script src="elements.js"></script>
+<script src="config-electron.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
+
